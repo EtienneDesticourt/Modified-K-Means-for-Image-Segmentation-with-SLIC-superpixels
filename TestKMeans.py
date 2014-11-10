@@ -6,7 +6,7 @@ Created on Nov 10, 2014
 
 import numpy as np
 import matplotlib.pyplot as plt
-
+from Classifier import Classifier
 
 
 
@@ -23,8 +23,15 @@ for x in xrange(10,15):
         X.append([x,y])
         
 X = np.array(X)
+k = 2
 
+C = Classifier()
+clusters = C.clusterize(X, k)
 
-plt.plot(X.T[0],X.T[1],"ro")
+X1 = X[clusters==0]
+X2 = X[clusters==1]
+
+plt.plot(X1.T[0],X1.T[1],"ro")
+plt.plot(X2.T[0],X2.T[1],"bx")
 plt.axis([0,20,0,15])
 plt.show()

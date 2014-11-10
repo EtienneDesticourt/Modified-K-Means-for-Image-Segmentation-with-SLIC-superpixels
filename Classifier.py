@@ -11,22 +11,37 @@ class Classifier:
         pass
     def pickMeans(self,X,k):
         means = []
-        mini = min(X)
-        maxi = max(X)
+        mini = X.min(axis = 0)
+        maxi = X.max(axis = 0)
         for i in xrange(k):
-            means.append( random.randrange(mini,maxi) )
+            randX = random.randrange(mini[0],maxi[0])
+            randY = random.randrange(mini[1],maxi[1])
+            means.append(  [randX,randY]  )
         return np.array(means)
-    def calcMean(self,X):
-        return sum(X)/len(X)
+    def calcMeans(self,X,clusters,k):
+        means = []
+        for i in xrange(k):
+            length = len(X) or 1
+            means.append( sum(X[clusters==i])/length )
+        return np.array( means )
     def clusterize(self,X,k):
         means = self.pickMeans(X,k)
-        lastMeans = means.copy()
-        
-        while means == lastMeans:
+        lastMeans = np.zeros(means.shape)
+        c = 0
+        print means, lastMeans
+        while not np.equal(means,lastMeans).all():
+            c += 1
+            print c
+            lastMeans = means
             distances = []
             for i in xrange(k):
                 distance = np.linalg.norm(X - means[i],axis=1)
                 distances.append( distance )
             distances = np.column_stack(distances)
             clusters = distances.argmin(axis=1)
+            means = self.calcMeans(X,clusters,k)
+            
+        return clusters
+            
+            
             
