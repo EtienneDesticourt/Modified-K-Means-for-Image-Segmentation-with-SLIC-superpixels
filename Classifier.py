@@ -27,19 +27,23 @@ class Classifier:
     def clusterize(self,X,k):
         means = self.pickMeans(X,k)
         lastMeans = np.zeros(means.shape)
-        c = 0
-        print means, lastMeans
-        while not np.equal(means,lastMeans).all():
-            c += 1
-            print c
-            lastMeans = means
-            distances = []
-            for i in xrange(k):
-                distance = np.linalg.norm(X - means[i],axis=1)
-                distances.append( distance )
-            distances = np.column_stack(distances)
-            clusters = distances.argmin(axis=1)
-            means = self.calcMeans(X,clusters,k)
+        try:
+            while not np.equal(means,lastMeans).all():
+                lastMeans = means
+                distances = []
+                for i in xrange(k):
+                    distance = np.linalg.norm(X - means[i],axis=1)
+                    distances.append( distance )
+                distances = np.column_stack(distances)
+                clusters = distances.argmin(axis=1)
+                means = self.calcMeans(X,clusters,k)
+        except ValueError, e:
+            print "Error"
+            print means
+            print lastMeans
+            print clusters
+            print "-----------------------"
+            
             
         return clusters
             

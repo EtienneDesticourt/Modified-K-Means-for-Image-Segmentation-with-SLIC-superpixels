@@ -26,7 +26,8 @@ X = np.array(X)
 k = 2
 
 C = Classifier()
-clusters = C.clusterize(X, k)
+for i in xrange(1000):
+    clusters = C.clusterize(X, k)
 
 X1 = X[clusters==0]
 X2 = X[clusters==1]
