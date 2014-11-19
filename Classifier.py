@@ -32,19 +32,18 @@ class Classifier:
                 lastMeans = means
                 distances = []
                 for i in xrange(k):
-                    distance = np.linalg.norm(X - means[i],axis=1)
-                    distances.append( distance )
-                distances = np.column_stack(distances)
-                clusters = distances.argmin(axis=1)
+                    distance = np.linalg.norm(X - means[i],axis=1) #returns float vector
+                    distances.append(distance)
+                distances = np.column_stack(distances)  #stack vectors horizontally              
+                clusters = distances.argmin(axis=1) #returns vector of indexes of smallest column element
                 means = self.calcMeans(X,clusters,k)
         except ValueError, e:
             print "Error"
             print means
             print lastMeans
             print clusters
-            print "-----------------------"
-            
-            
+            print "-----------------------"      
+        #Each element of the clusters vector correspond with the index of the cluster
         return clusters
             
             

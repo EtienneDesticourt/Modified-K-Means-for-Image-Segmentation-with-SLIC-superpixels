@@ -26,9 +26,10 @@ X = np.array(X)
 k = 2
 
 C = Classifier()
-for i in xrange(1000):
+for i in xrange(1):
     clusters = C.clusterize(X, k)
-
+print clusters.shape
+print X.shape
 X1 = X[clusters==0]
 X2 = X[clusters==1]
 
