@@ -13,7 +13,7 @@ imgSize = IP.getSize("5.jpg")
 imgSpace = IP.process("5.jpg")
 # print imgSpace[:766,3:5]
 S = Segmenter()
-K = 27
+K = 108
 
 
 #Test pick centers
@@ -21,9 +21,36 @@ K = 27
 gridInterval = S.calcGridInterval(imgSpace.shape, K)
 centers = S.pickCenters(K, gridInterval, imgSpace, imgSize)
 print centers.shape
+
+
 # print centers
-X = centers[:,3]
-Y = centers[:,4]
+X0 = centers[:,3]
+Y0 = centers[:,4]
 # print X,Y
-plt.plot(X,Y,"rx")
-plt.show()
+plt.plot(X0,Y0,"rx")
+
+
+#Test rectangle extraction
+indexes = S.calcRectIndexes(imgSpace, centers[12], gridInterval)
+rectangle = imgSpace[indexes]
+
+X1 = rectangle[:,3]
+Y1 = rectangle[:,4]
+plt.plot(X1,Y1,"bx")
+plt.plot(X0,Y0,"rx")
+
+#Test distance calculation
+distance = S.calcDistance(gridInterval, rectangle, centers[12])
+print rectangle.shape
+print distance.shape
+
+#Test clustering
+distances = S.calcAllDistances(imgSpace, centers, K, gridInterval)
+print distances.shape
+print distances[0:10,:]
+
+
+
+
+
+# plt.show()

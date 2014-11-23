@@ -1,0 +1,12 @@
+Implementation of the SLIC algorithm for image segmentation.
+Using this paper: http://www.kev-smith.com/papers/SLIC_Superpixels.pdf
+
+I haven't implemented enforced connectivity, if I had more time it could be interesting.
+
+Knowledge acquired:
+	K-Means
+
+Knowledge consolidated:
+	Numpy
+
+	

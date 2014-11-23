@@ -1,6 +1,7 @@
 '''
 Created on Nov 10, 2014
 @author: Etienne
+Basic K-Means implementation.
 '''
 
 import random
@@ -21,7 +22,7 @@ class Classifier:
     def calcMeans(self,X,clusters,k):
         means = []
         for i in xrange(k):
-            length = len(X) or 1
+            length = len(X[clusters==i]) or 1
             means.append( sum(X[clusters==i])/length )
         return np.array( means )
     def clusterize(self,X,k):

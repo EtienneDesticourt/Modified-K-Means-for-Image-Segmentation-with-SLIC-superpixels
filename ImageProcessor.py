@@ -8,9 +8,12 @@ class ImageProcessor:
     def getSize(self, path):
         img = io.imread(path)
         return img.shape
+    def getImg(self, path):
+        
+        rgbImg = io.imread(path)
+        return rgbImg
     def process(self, path):
         rgbImg = io.imread(path)
-        io.show()
         labImg = color.rgb2lab(rgbImg)
 #         Viewer = ImageViewer(rgbImg)
 #         Viewer.show()
